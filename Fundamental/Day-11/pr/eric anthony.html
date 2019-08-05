@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div.container {
+            border: 1px solid black;
+            float: left;
+            width: fit-content;
+            padding: 5px;
+        }
+
+        ol {
+            padding-left: 1em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3>Drawing Tools</h3>
+    <p>Pilihan Bentuk: </p>
+    <ol>
+        <li>Persegi</li>
+        <li>Segitiga Siku Kiri</li>
+        <li>Segitiga Siku Kanan</li>
+        <li>Segitiga Sama Kaki</li>
+        <li>Clear Display</li>
+    </ol>
+    <input type="number" placeholder="pilihan" id="pilihan"><br>
+    <input type="number" placeholder="jumlah" id="jumlah"><br>
+    <input type="button" id="btn_submit" value="submit">
+    <div id="result"></div>
+</div>
+<script>
+    function $(selector){
+        return document.querySelector(selector)
+    }
+    $('#btn_submit').addEventListener('click',evt => {
+        const pilihan = parseInt($('#pilihan').value)
+        const jumlah = parseInt($('#jumlah').value)
+
+        let html = ''
+        switch (pilihan) {
+            case 1:
+                for (let i = 0; i < jumlah ; i++) {
+                    for (let j = 0; j < jumlah ; j++) {
+                        html += "*"
+                    }
+                    html += "<br>"
+                }
+                break;
+            case 2:
+                for (let i = 0; i < jumlah; i++) {
+                    html += "*";
+                    for (let j = 0; j < i; j++) {
+                        html += "*"
+                    }
+                    html += "<br>"
+                }
+                break;
+            case 3:
+                html+= "<div style='direction: rtl'>"
+                for (let i = 0; i < jumlah; i++) {
+                    html += "*";
+                    for (let j = 0; j < i; j++) {
+                        html += "*"
+                    }
+                    html += "<br>"
+                }
+                html+="</div>"
+                break;
+            case 4:
+                for (let i = 0; i < jumlah*2; i++) {
+                    if(i % 2) {
+                        for (let j = 0; j < i; j++) {
+                            if(j == 0) {
+                                for (let x = jumlah*2; x > i/2; x--) {
+                                    html += "&nbsp;&nbsp;"
+                                }
+                            }
+                            html += "*"
+                        }
+                        html += "<br>"
+                    }
+                }
+                break;
+            case 5:
+                break;
+            default:
+                html = false
+                alert('invalid input')
+        }
+
+        if(html) $('div#result').innerHTML = html
+    })
+</script>
+</body>
+</html>

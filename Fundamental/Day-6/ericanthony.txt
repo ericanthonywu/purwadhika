@@ -1,0 +1,207 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    let arritem = [''];
+    let arrprice = [''];
+    let arrcart = [];
+    let arrcartquantity = [];
+    runapp()
+    function runapp () {
+        const numberWithCommas = n => {
+            const parts = n.toString().split(".");
+            return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
+        };
+        const menu = prompt(`
+        Login as:
+        1. Admin
+        2. User
+        3. Exit
+        `);
+        switch (parseInt(menu)) {
+            case 1:
+                const runadminmenu = () => {
+                    const adminmenu = prompt(`
+                   Login Admin
+                1. tampilkan item
+                2. tambah item
+                3. hapus item
+                4. back to main menu
+                `);
+                    switch (parseInt(adminmenu)) {
+                        case 1:
+                            if (arritem.length == 1 && arrprice.length == 1) {
+                                alert('data kosong');
+                                runadminmenu()
+                            } else {
+                                let databarang = '';
+                                for (let i = 1; i < arrprice.length; i++) {
+                                    databarang += `${i}. ${arritem[i]} Rp.${numberWithCommas(arrprice[i])} \n`
+                                }
+                                alert(databarang);
+                                runadminmenu();
+                            }
+                            break;
+                        case 2:
+                            const item = prompt('Masukkan Nama barang');
+                            const harga = () => {
+                                const hargabarang = prompt('Masukkan harga barang');
+                                if (!isNaN(hargabarang)) {
+                                    arritem.push(item);
+                                    arrprice.push(hargabarang);
+                                    runadminmenu()
+                                } else {
+                                    alert('invalid input');
+                                    harga()
+                                }
+                            };
+                            harga();
+                            break;
+                        case 3:
+                            const delappadmin = () => {
+                                const delitem = prompt('Masukkan barang yg di hapus');
+                                if (arritem.includes(delitem)) {
+                                    const indexitem = delitem.indexOf(delitem);
+                                    arritem.splice(indexitem, 1);
+                                    arrprice.splice(indexitem, 1);
+                                    runadminmenu()
+                                } else {
+                                    const ask = confirm('item tidak tersedia');
+                                    if (ask) {
+                                        delappadmin();
+                                    } else {
+                                        runadminmenu()
+                                    }
+                                }
+                            };
+                            delappadmin();
+                            break;
+                        case 4:
+                            runapp();
+                        default:
+                            alert('invalid input');
+                            runadminmenu()
+                    }
+                };
+                runadminmenu();
+                break;
+            case 2:
+
+                const runuser = () => {
+                    const usermenu = prompt(`
+                    1. Go Shopping
+                    2. Show Cart
+                    3. CheckOut
+                    4. Back to main menu
+                    `);
+
+                    switch (parseInt(usermenu)) {
+                        case 1:
+                            const runusershopping = () => {
+                                let databarang = 'MENU BELANJA \n';
+                                for (let i = 1; i < arritem.length; i++) {
+                                    databarang += `${i}. ${arritem[i]} Rp.${numberWithCommas(arrprice[i])} ${!arrcart.includes(arritem[i]) ? "(Cart)" : ""} \n`
+                                }
+                                databarang += `type 'back' to back`;
+                                let pilihan_menu = prompt(databarang);
+                                if (pilihan_menu == "back") {
+                                    runuser()
+                                } else {
+                                    q_func = () => {
+                                        const q_barang = parseInt(prompt('Masukkan qty'));
+                                        if(isNaN(q_barang)) {
+                                            alert('invalid input');
+                                            q_func();
+                                        }
+
+                                        pilihan_menu = parseInt(pilihan_menu);
+                                        if (typeof arritem[pilihan_menu] !== "undefined") {
+                                            if (!arrcart.includes(pilihan_menu)) {
+                                                arrcart.push(pilihan_menu);
+                                                arrcartquantity.push(q_barang)
+                                            }else{
+                                                arrcartquantity[arrcart.indexOf(pilihan_menu)] += q_barang
+                                            }
+                                            // alert(arrcart + " || " + arrcartquantity)
+                                            runusershopping()
+                                        } else {
+                                            alert('barang tidak tersedia');
+                                            runusershopping()
+                                        }
+                                    }
+                                    q_func();
+                                }
+                            };
+                            runusershopping();
+                            break;
+                        case 2:
+                            if(arrcart.length == 0 || arrcartquantity.length == 0){
+                                alert('keranjang kosong')
+                            }else {
+                                let cartdata = 'Keranjang mu \n';
+                                for (let i = 0; i < arrcart.length; i++) {
+                                    cartdata += `${i + 1}. ${arritem[arrcart[i]]} Rp.${numberWithCommas(arrprice[arrcart[i]])} x${arrcartquantity[i]} \n`
+                                }
+                                alert(cartdata);
+                            }
+                            runuser();
+                            break;
+                        case 3:
+                            const checkout = () => {
+
+                                let cartdatastr = '---- CHECKOUT ----\n';
+                                let totalharga = 0;
+                                if (arrcart.length == 0 || arrcartquantity.length == 0) {
+                                    alert('keranjang kosong')
+                                } else {
+                                    for (let i = 0; i < arrcart.length; i++) {
+                                        cartdatastr += `${i + 1}. ${arritem[arrcart[i]]} Rp.${numberWithCommas(arrprice[arrcart[i]])} x${arrcartquantity[i]} \n`;
+                                        totalharga += parseInt(arrprice[arrcart[i]]) * arrcartquantity[i]
+                                    }
+                                    cartdatastr += `------------------------------------\n`;
+                                    cartdatastr += `Total harga Rp.${numberWithCommas(totalharga)} `;
+                                    cartdatastr += `------------------------------------\n`;
+                                    cartdatastr += `Input Pembayaran`;
+                                    const duit_user = prompt(cartdatastr);
+                                    if(isNaN(duit_user)){
+                                        alert('Input Invalid')
+                                        checkout()
+                                    }else if(duit_user < totalharga){
+                                        alert('Duit kurang')
+                                        checkout()
+                                    }else {
+                                        const kembalian = duit_user - totalharga;
+                                        alert('Kembalian anda Rp.'+numberWithCommas(kembalian) )
+                                        arrcart = [];
+                                        arrcartquantity = []
+                                    }
+                                }
+                                runuser();
+                            }
+                            checkout()
+                            break;
+                        case 4:
+                            alert('You\'ve been logged out');
+                            runapp();
+                            break;
+                    }
+                };
+                runuser();
+                break;
+            case 3:
+                break;
+            default:
+                alert('invalid input');
+                runapp()
+        }
+    };
+
+</script>
+</body>
+</html>

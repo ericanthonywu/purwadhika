@@ -1,0 +1,257 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript"
+            src="http://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js"
+            charset="UTF-8"></script>
+    <link rel="stylesheet" crossorigin="anonymous"
+          href="http://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css"/>
+</head>
+<style>
+    img {
+        width: 50px;
+    }
+</style>
+<body>
+<h1>
+    <center>WELCOME TO MA MARKETSZ</center>
+</h1>
+<table border="1" style="width: 80%;margin: auto">
+    <thead>
+    <tr>
+        <td> No</td>
+        <td> Nama</td>
+        <td> Gambar</td>
+        <td> Harga</td>
+        <td> Action</td>
+    </tr>
+    </thead>
+    <tbody id="prod">
+
+    </tbody>
+</table>
+<br><br><br>
+<div id="emptycart">
+    <center><h1> Your cart is empty</h1></center>
+</div>
+<div id="con-cart">
+    <center><h2>Total Harga : <span id="totalharga"></span></h2>
+        <div id="con-time" style="display: none"><p>Your cart will reset in <span id="second">30</span></p></div>
+    </center>
+    <table border="1" style="width: 80%;margin: auto">
+        <thead>
+        <tr>
+            <td> No</td>
+            <td> Nama</td>
+            <td> Gambar</td>
+            <td> Harga</td>
+            <td> Subtotal</td>
+            <td> Action</td>
+        </tr>
+        </thead>
+        <tbody id="cart">
+
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <center>
+        <button id="checkout">Checkout</button>
+        <br>
+        <div id="con-checkout" style="border: 1px solid black;display: none;padding: 20px">
+            <input type="text" id="hargacheckout">
+            <button id="submit"> Submit</button>
+        </div>
+    </center>
+
+</div>
+<script>
+    function $(selector) {
+        return document.querySelectorAll(selector).length === 1 ? document.querySelector(selector) : document.querySelectorAll(selector)
+    }
+
+    function numberWithCommas(n) {
+        const parts = n.toString().split(".");
+        return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
+    }
+
+    $('#hargacheckout').addEventListener('keypress', e => {
+        const regex = new RegExp("^[0-9]$");
+        const key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (!regex.test(key)) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    function checknumber() {
+
+    }
+
+    const data = [
+        {
+            nama: "barang",
+            gambar: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1024px-Good_Food_Display_-_NCI_Visuals_Online.jpg",
+            harga: 20000
+        },
+        {
+            nama: "barang1",
+            gambar: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1024px-Good_Food_Display_-_NCI_Visuals_Online.jpg",
+            harga: 30000
+        },
+        {
+            nama: "barang2",
+            gambar: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1024px-Good_Food_Display_-_NCI_Visuals_Online.jpg",
+            harga: 40000
+        },
+    ];
+    let cartarr = [];
+    let html = '';
+    let harga = 0;
+    let no = 1;
+    let id = 0;
+    data.forEach(o => {
+        html += `
+            <tr>
+                <td>${no}</td>
+                <td>${o.nama}</td>
+                <td><img src="${o.gambar}" alt="${o.gambar}"></td>
+                <td>Rp. ${numberWithCommas(o.harga)}</td>
+                <td><button data-id="${id}" class="action">Action</button></td>
+            </tr>
+        `;
+        id++;
+        no++;
+    });
+    const refreshcart = () => {
+        if (cartarr.length == 0) {
+            $('#emptycart').style.display = "block";
+            $('#con-cart').style.display = "none"
+        } else {
+            $('#emptycart').style.display = "none";
+            $('#con-cart').style.display = "block"
+        }
+    };
+    const showcart = () => {
+        let html = '';
+        let no = 1;
+        cartarr.forEach(o => {
+            harga += Number(o.harga) * Number(o.jumlah);
+            html += `
+                <tr>
+                    <td>${no}</td>
+                    <td>${o.nama}</td>
+                    <td><img src="${o.gambar}" alt="${o.gambar}" width="60"></td>
+                    <td>Rp. ${numberWithCommas(o.harga)}</td>
+                    <td>${numberWithCommas(o.jumlah)}</td>
+                    <td><button data-id="${o.id}" class="delete">Delete</button></td>
+                </tr>`;
+            no++;
+        });
+        $('#totalharga').innerHTML = `Rp. ${numberWithCommas(harga)}`;
+        $('#cart').innerHTML = html;
+        if (!cartarr.length) harga = 0
+        refreshcart()
+    };
+    document.getElementById('prod').innerHTML = html;
+    refreshcart();
+
+    document.addEventListener('click', e => {
+        if (e.target.classList.contains('delete')) {
+            const id = e.target.dataset.id;
+            const jumlah = prompt('Berapa?');
+            if (jumlah == false) {
+                return false
+            }
+            if (isNaN(jumlah)) {
+                alert('invalid angka');
+                return false
+            }
+            for (let j = 0; j < cartarr.length; j++) {
+                if (cartarr[j].id === id) {
+                    if (cartarr[j].jumlah > Number(jumlah)) {
+                        cartarr[j].jumlah -= Number(jumlah);
+                        console.log(cartarr[j].jumlah);
+                        console.log(jumlah)
+                    } else {
+                        cartarr.splice(j, 1)
+                    }
+                }
+            }
+            showcart()
+        }
+    });
+
+    const elbtn = $('.action');
+    for (let i = 0; i < elbtn.length; i++) {
+        elbtn[i].addEventListener("click", e => {
+            const id = e.target.dataset.id;
+            const qty = prompt('input qty');
+            if (isNaN(qty)) {
+                alert('invalid input');
+                return false;
+            }
+            if (qty == null) {
+                return false;
+            }
+            let res = true;
+            if (cartarr.length) {
+                for (let j = 0; j < cartarr.length; j++) {
+                    if (cartarr[j].id == id) {
+                        cartarr[j].jumlah += Number(qty);
+                        res = false
+                    }
+                }
+            }
+            if (res) {
+                cartarr.push({...data[id], jumlah: parseInt(qty), id: id});
+            }
+            refreshcart();
+            showcart()
+        })
+    }
+    let s = 30;
+    let timer;
+    $('#checkout').addEventListener('click', e => {
+        $('#con-time').style.display = "block";
+        $('#con-checkout').style.display = "block";
+        timer = setInterval(() => {
+            s--;
+            $('#second').innerText = s;
+            if (!s) {
+                $('#second').innerText = 30;
+                alert('SESSION EXPIRED')
+                $('#con-time').style.display = "none";
+                cartarr = [];
+                s = 30;
+                $('#con-checkout').style.display = "none";
+                showcart();
+                refreshcart();
+                clearInterval(timer)
+            }
+        }, 1000)
+    });
+    $('#submit').addEventListener('click', e => {
+        if (harga >= parseInt($('#hargacheckout').value)) {
+            alert('terima kasih');
+            clearInterval(timer);
+            s = 30;
+            $('#second').innerText = 30;
+            $('#con-time').style.display = "none";
+            $('#con-checkout').style.display = "none";
+            cartarr = [];
+            showcart();
+            refreshcart()
+        } else {
+            alert('duit kurang');
+            s = 30;
+            $('#second').innerText = 30;
+        }
+    })
+</script>
+</body>
+</html>

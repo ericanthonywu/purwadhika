@@ -1,0 +1,9 @@
+const medianBro = arr => {
+    const sorted = arr.slice().sort((a, b) => a - b);
+    const middle = Math.floor(sorted.length / 2);
+
+    return !(sorted.length % 2) ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle];
+};
+
+console.log(medianBro([100, 55, 12, 20, 22, 40, 56, 70]));
+

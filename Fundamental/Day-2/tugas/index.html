@@ -1,0 +1,58 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    function runapp() {
+        function ngitung(value1, value2, operator) {
+            let angka = false;
+            switch (operator) {
+                case "*":
+                    angka = value1 * value2;
+                    break;
+                case "/":
+                    angka = parseInt(value1 / value2);
+                    break;
+                case "+":
+                    angka = value1 + value2;
+                    break;
+                case "-":
+                    angka = value1 - value2;
+                    break;
+            }
+            return angka;
+        }
+
+        const angka1 = parseInt(prompt('Masukkan angka1'));
+        const angka2 = parseInt(prompt('Masukkan angka2'));
+        const operator = prompt('Masukkan Opertator');
+        if (isNaN(angka1) || isNaN(angka2)) {
+            alert('harap menginput angka');
+            runapp()
+        } else {
+            const hasil = ngitung(angka1, angka2, operator);
+            if (!hasil) {
+                alert('Hanya Menerima operator *,+,/,-');
+                runapp()
+            } else {
+                alert(`Hasil = ${hasil}`);
+                const tanya = confirm('Apakah akan melanjutkan?');
+                if (tanya) {
+                    runapp();
+                } else {
+                    alert('Terima kasih telah menggunakan ini');
+                }
+
+            }
+        }
+    }
+
+    runapp()
+</script>
+</body>
+</html>

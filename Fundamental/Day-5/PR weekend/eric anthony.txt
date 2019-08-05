@@ -1,0 +1,38 @@
+const hapusVocal = str => {
+    return str.replace(/[aiueo]/gi, '')
+};
+
+const parkir = val => {
+    let harga = 0;
+    for (let i = 0; i < val; i++) {
+        harga += i < 2 ? 2000 : 500
+    }
+    return `Anda harus bayar Rp.${harga}`;
+};
+
+const ganjilGenap = val => {
+    return `angka anda ${val % 2 ? "ganjil" : "genap"}`
+};
+
+const maxNum = (num1, num2, num3) => {
+    return `Angka terbesar anda adalah ${Math.max(num1, num2, num3)}`
+};
+const filterString = arr => {
+    let arrint = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (!isNaN(parseInt(arr[i]))) arrint.push(arr[i])
+    }
+    return arrint;
+};
+
+const removeChar = str => {
+    return str.slice(1, -1)
+};
+
+
+console.log(hapusVocal('hAlo namaku bEntO'));
+console.log(parkir(4));
+console.log(ganjilGenap(5));
+console.log(maxNum(17, 5, 42));
+console.log(filterString(['galau', 7, 2, 'Doraemon', 'Meja', 'Leci', 9]));
+console.log(removeChar('Gak kuat akutuh'));

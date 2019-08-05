@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<center>
+    <table>
+        <tr>
+            <td id="pertama"></td>
+            <td id="kedua"></td>
+            <td id="ketiga"></td>
+            <td id="keempat"></td>
+        </tr>
+    </table>
+    <input type="number" id="input"><input type="button" onclick="go()" value="INPUT">
+    <!-- <h1 id="testing"></h1> -->
+    <!-- <input type="button" onclick="show1()"> -->
+</center>
+
+<script>
+    input = () => {
+        x = document.getElementById('input').value
+        inpArr = x.split()
+        document.getElementById('testing').innerHTML = inpArr
+    }
+
+    var satu = `|<br>
+                    |`
+    var dua = `__<br>
+                    __|<br>
+                    |__<br>`
+    var tiga = `__<br>
+                    __|<br>
+                    __|`
+    var empat = `|_|<br>
+        &nbsp&nbsp&nbsp|<br>`
+    var lima = `__<br>
+                    |__<br>
+                    __|`
+    var enam = `__<br>
+                    |__<br>
+                    |__|<br>`
+    var tujuh = `__<br>
+        &nbsp&nbsp&nbsp|<br>
+        &nbsp&nbsp&nbsp|<br>`
+    var delapan = `__<br>
+        |__|<br>
+        |__|<br>`
+    var sembilan = ` __<br>
+        |__|<br>
+        &nbsp__|<br>`
+
+    var nol = `__<br>
+        |&nbsp&nbsp|<br>
+        |_|`
+
+    go = () => {
+        x = document.getElementById('input').value
+        inpArr = x.split('')
+        for (var i = 0; i < 4; i++) {
+            if (inpArr[i] == 0) {
+                document.getElementsByTagName('td')[i].innerHTML = nol
+            } else if (inpArr[i] == 1) {
+                document.getElementsByTagName('td')[i].innerHTML = satu
+            } else if (inpArr[i] == 2) {
+                document.getElementsByTagName('td')[i].innerHTML = dua
+            } else if (inpArr[i] == 3) {
+                document.getElementsByTagName('td')[i].innerHTML = tiga
+            } else if (inpArr[i] == 4) {
+                document.getElementsByTagName('td')[i].innerHTML = empat
+            } else if (inpArr[i] == 5) {
+                document.getElementsByTagName('td')[i].innerHTML = lima
+            } else if (inpArr[i] == 6) {
+                document.getElementsByTagName('td')[i].innerHTML = enam
+            } else if (inpArr[i] == 7) {
+                document.getElementsByTagName('td')[i].innerHTML = tujuh
+            } else if (inpArr[i] == 8) {
+                document.getElementsByTagName('td')[i].innerHTML = delapan
+            } else if (inpArr[i] == 9) {
+                document.getElementsByTagName('td')[i].innerHTML = sembilan
+            }
+        }
+    }
+</script>
+
+</body>
+
+
+
+</html>

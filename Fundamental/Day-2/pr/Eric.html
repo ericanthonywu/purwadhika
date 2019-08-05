@@ -1,0 +1,39 @@
+<script>
+
+
+
+    function runapp() {
+        const jam_tiba = parseInt(prompt('Input jam tiba'));
+        const tipe_tiba = parseInt(prompt('1 = AM, 2 = PM'));
+        const jam_berangkat = parseInt(prompt('Input Jam berangkat'));
+        const tipe_berangkat = parseInt(prompt('1 = AM, 2 = PM'));
+
+        const jam_tiba_jadi = tipe_tiba === 2 ? jam_tiba + 12 : jam_tiba;
+        const jam_berangkat_jadi = tipe_berangkat === 2 ? jam_berangkat + 12 : jam_berangkat;
+
+        const selisih_jam = jam_berangkat_jadi - jam_tiba_jadi;
+        let total = 0;
+        for (let i = 1; i < selisih_jam; i++) {
+            total += i <= 2 ? 2000 : 500
+        }
+        alert(`Total harga = ${total}`);
+
+        const ulang = confirm('Apakah ingin mencoba lagi?');
+        if (ulang) {
+            runapp()
+        } else {
+            alert('Terima Kasih')
+        }
+    }
+    runapp()
+
+
+
+
+
+
+
+
+
+
+</script>

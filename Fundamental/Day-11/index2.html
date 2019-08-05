@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td {
+            text-align: center;
+            border: solid black 1px;
+            border-collapse: collapse;
+            padding: 10px;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <table>
+        <thead>
+        <tr>
+            <td>Nama</td>
+            <td>Usia</td>
+            <td>Pekerjaan</td>
+            <td>Gender</td>
+        </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+        <tr>
+            <td><input id="nama" type="text" placeholder="input Nama"></td>
+            <td><input id="umur" type="text" placeholder="input Usia"></td>
+            <td><input id="pekerjaan" type="text" placeholder="input Pekerjaan"></td>
+            <!--            <td><input id="gender" type="radio" value="P">P <input type="radio" value="W">W</td>-->
+        </tr>
+        </tfoot>
+    </table>
+    <input type="button" id="tmbhdata" value="add">
+</center>
+<script>
+    class Orang {
+        constructor(nama, umur, pekerjaan, gender) {
+            this.nama = nama;
+            this.usia = umur;
+            this.pekerjaan = pekerjaan;
+            // this.gender = gender/
+        }
+    }
+
+    data = [];
+
+    document.getElementById('tmbhdata').addEventListener("click", () => {
+        const nama = document.getElementById('nama').value;
+        const umur = document.getElementById('umur').value;
+        const job = document.getElementById('pekerjaan').value;
+
+        const orang = new Orang(nama, umur, job);
+        data.push(orang);
+
+    })
+</script>
+</body>
+</html>

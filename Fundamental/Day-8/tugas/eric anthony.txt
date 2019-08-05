@@ -1,0 +1,15 @@
+const sumFn = arr => {
+    let sumPositive = 0;
+    let sumNegative = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > 0) {
+            sumPositive += arr[i]
+        } else {
+            sumNegative += arr[i]
+        }
+    }
+    return [sumPositive, sumNegative]
+};
+
+console.log(sumFn([2, 8, -7, -8, 5, -3]));

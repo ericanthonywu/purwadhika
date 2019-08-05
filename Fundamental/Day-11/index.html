@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<center>
+<!--    -->
+    <div>
+        <h1>Mari menghitung!</h1>
+        <input type="number" placeholder="Input angka!" id="angka1">
+        <input type="number" placeholder="Input angka!" id="angka2">
+    </div>
+    <br>
+    <br>
+    <button id="tambah">Tambah</button>&nbsp;&nbsp;
+    <button id="kurang">Kurang</button>&nbsp;&nbsp;
+    <button data-id="1" id="kali">Kali</button>&nbsp;&nbsp;
+    <button id="bagi">Bagi</button>
+</center>
+<script>
+    const $ = selector=> {
+        return document.querySelectorAll(selector).length == 1 ? document.querySelector(selector) : document.querySelectorAll(selector)
+    }
+    $('#tambah').addEventListener('click', e => {
+        document.getElementsByTagName('h1')[0].innerHTML = parseInt($('#angka1').value) + parseInt($('#angka2').value)
+    });
+    $('#kurang').addEventListener('click', e => {
+        document.getElementsByTagName('h1')[0].innerHTML = parseInt($('#angka1').value) - parseInt($('#angka2').value)
+    });
+    $('#kali').addEventListener('click', e => {
+        console.log(e)
+        document.getElementsByTagName('h1')[0].innerHTML = parseInt($('#angka1').value) * parseInt($('#angka2').value)
+    });
+    $('#bagi').addEventListener('click', e => {
+        document.getElementsByTagName('h1')[0].innerHTML = parseInt($('#angka1').value) / parseInt($('#angka2').value)
+    })
+</script>
+</body>
+</html>

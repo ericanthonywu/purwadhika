@@ -1,0 +1,136 @@
+<script>
+    /*
+    TODO :
+    1. User input jumlah baris segitiga
+    2. User input jenis segitiga => {
+        a. Siku2 membesar
+        b. Siku2 mengecil
+        c. Belanja
+        d. Sama kaki
+    }
+    3. Ulang?
+    4. Kalau tidak ulang, display message
+
+    note: msh ada bug gk tau magic dari mana kadang segitiga loopingnya muncul kadang engga sama hasil total
+    belanja juga kadang muncul kadang engga
+     */
+    const runapp = () => {
+        const IntPrompt = (value, minval = null, maxval = null) => {
+            const prompts = parseInt(prompt(value));
+            if (isNaN(prompts)) {
+                alert('Invalid Input');
+                IntPrompt(value);
+                return false;
+            } else if (minval !== null && minval.isArray() && minval.includes(prompts)) {
+                return prompts;
+            } else {
+                if (maxval !== null && prompts > maxval) {
+                    alert(`Maksimum input: ${maxval}`);
+                    IntPrompt(value);
+                    return false;
+                } else if (minval !== null && prompts < minval) {
+                    alert(`Minimum input: ${minval}`);
+                    IntPrompt(value);
+                    return false;
+                } else {
+                    return prompts;
+                }
+            }
+        };
+        const check = hasil => {
+            alert(hasil);
+            const cek = confirm('Ulang?');
+            if (cek) runapp()
+        };
+        const menu = prompt(`
+        MENU
+
+        1. Segitiga siku-siku
+        2. Segitiga Sama kaki
+        3. Belanja
+        4. Exit
+    `);
+        switch (parseInt(menu)) {
+            case 1:
+                const baris = IntPrompt('Masukkan Baris Segitiga');
+                if (baris) {
+                    const siku = IntPrompt(`
+                    Segitiga siku-siku
+                    1. Siku Atas
+                    2. Siku Bawah
+                `, 1, 2);
+                    let hasil = '';
+                    if (siku == 1) {
+                        for (let i = 0; i < baris; i++) {
+                            hasil += "*";
+                            for (let j = 0; j < i; j++) {
+                                hasil += "*"
+                            }
+                            hasil += "\n"
+                        }
+                    } else if (siku == 2) {
+                        for (let i = baris; i >= 0; i--) {
+                            hasil += "\t *";
+                            for (let j = 0; j < i; j++) {
+                                hasil += "* "
+                            }
+                            hasil += "\n"
+                        }
+                    }
+                    check(hasil)
+                }
+                break;
+            case 2:
+                const baris2 = IntPrompt('Masukkan Baris Segitiga');
+                let hasil = '';
+                if (baris2) {
+                    for (let i = 0; i <= baris2*2; i++) {
+                        if (i % 2) {
+                            for (let j = 0; j < i; j++) {
+                                if (j == 0) {
+                                    for (let x = baris2*2; x > i / 2; x--) {
+                                        hasil += " "
+                                    }
+                                }
+                                hasil += "*"
+                            }
+                            hasil += "\n"
+                        }
+                    }
+                }
+                check(hasil);
+                break;
+            case 3:
+                const menu_belanja = IntPrompt(`
+            Menu Belanja
+            1. Ayam = 10000 / porsi
+            2. Nasi = 4000 / porsi
+            3. Tempe = 2000 / porsi
+            `);
+                let harga = 0;
+                switch (menu_belanja) {
+                    case 1:
+                        harga = 10000;
+                        break;
+                    case 2:
+                        harga = 4000;
+                        break;
+                    case 3:
+                        harga = 2000;
+                        break;
+                }
+                const potong = IntPrompt('Berapa Porsi?');
+                if (potong) {
+                    check(`Totalnya ${potong * harga}`)
+                }
+                break;
+            case 4:
+                alert('Terima Kasih');
+                break;
+            default:
+                alert('Hanya menerima angka 1-4');
+                runapp()
+        }
+    };
+    runapp();
+</script>

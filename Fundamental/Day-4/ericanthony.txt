@@ -1,0 +1,6 @@
+const multiply = (loop,value)=>{
+    for (let i = 1;i <= loop;i++){
+        console.log(value * i);
+    }
+}
+multiply(10,2)
