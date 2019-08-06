@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body class="container">
+<style>
+    img {
+        width: 75px
+    }
+
+    body {
+        font-family: "Comic Sans MS";
+    }
+</style>
+<center>
+    <h3>Products</h3>
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th>Nama</th>
+            <th>Harga</th>
+            <th>Gambar</th>
+            <th>Add</th>
+        </tr>
+        </thead>
+        <tbody id="product">
+
+        </tbody>
+        <tfoot>
+        <tr>
+            <td><input placeholder="Input item name" type="text" id="name" class="form-control"></td>
+            <td><input placeholder="Input price" type="number" id="price" class="form-control"></td>
+            <td><input placeholder="Input img link" type="text" id="pic" class="form-control"></td>
+            <td><input type="reset" value="ADD ITEM" class="btn btn-primary" id="additem"></td>
+        </tr>
+        </tfoot>
+    </table>
+    <div id="emptycart">
+        <h3>Your Cart is Empty</h3>
+    </div>
+    <div id="con-cart" style="display: none">
+        <h2>Total Belanja anda: <span id="subtotal">0</span></h2>
+        <h3>Total Harga Belanjaan anda: <span id="totalbelanja">0</span></h3>
+        <br>
+        <br>
+        <h3>Cart</h3>
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Harga</th>
+                <th>Gambar</th>
+                <th>Quantity</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody id="cart">
+
+            </tbody>
+        </table>
+
+        <button class="btn btn-primary btn-outline-primary" id="checkout">Checkout</button>
+        <div style="padding : 10px;display: none" id="checkout-con">
+            <span>You Have <span id="seconds">30</span> seconds left</span><br>
+            <input type="number" id="checkoutvalue">
+            <button class="btn btn-info" id="pay"> Pay</button>
+        </div>
+    </div>
+</center>
+<script>
+    //======== global variable and function =====================
+    function $(selector) {
+        return document.querySelectorAll(selector).length == 1 ? document.querySelector(selector) : document.querySelectorAll(selector)
+    }
+
+    class Product {
+        constructor(nama, harga, gambar) {
+            this.nama = nama,
+                this.harga = harga,
+                this.gambar = gambar
+        }
+    }
+
+    const data = [
+        new Product('kacang', 20000, './kacang.jpeg'),
+        new Product('susu', 10000, './susu.jpeg'),
+        new Product('roti', 5000, './roti.jpeg'),
+    ];
+    let totalbelanja = 0;
+    let subtotal = 0;
+    let cart = [];
+    showCart = () => {
+        let hasil = '';
+        totalbelanja = 0;
+        subtotal = 0;
+        if (cart.length) {
+            cart.forEach(o => {
+                hasil += `<tr>
+                        <td>${o.nama}</td>
+                        <td>${o.harga}</td>
+                        <td><img src="${o.gambar}" /></td>
+                        <td>${o.qty}</td>
+                        <td><input type="button" value="DELETE" onclick="deleteprod(${o.id})" class="btn btn-danger"></td>
+                    </tr>`;
+                totalbelanja += (o.qty * o.harga);
+                subtotal += o.qty
+            });
+            $('#totalbelanja').innerText = totalbelanja;
+            $('#subtotal').innerText = subtotal;
+            $('#cart').innerHTML = hasil;
+            $('#emptycart').style.display = "none";
+            $('#con-cart').style.display = "block"
+        } else {
+            $('#emptycart').style.display = "block";
+            $('#con-cart').style.display = "none";
+            $('#totalbelanja').innerText = 0;
+            $('#subtotal').innerText = 0
+        }
+    };
+
+    getIndexById = id => {
+        if (cart.length) { //check if cart has data
+            for (let i = 0; i < cart.length; i++) {
+                if (cart[i].id === id) { //find id of the prod by index of the loop
+                    return i;
+                }
+            }
+            return false
+        }
+        return false;
+    };
+
+    //=========== initialize show data ==========================
+    const showData = () => {
+        let id = 0;
+        let hasil = '';
+        data.forEach(o => {
+            hasil += `
+                <tr>
+                    <td>${o.nama}</td>
+                    <td>${o.harga}</td>
+                    <td><img src="${o.gambar}" /></td>
+                    <td><input type="button" value="ADD TO CART" class="btn btn-success addcart" onclick="addProduct(${id})" /></td>
+                </tr>
+        `;
+            id++
+        });
+        $('#product').innerHTML = hasil;
+    };
+    showData();
+
+    //======= initial function =========
+
+    $('#additem').addEventListener('click', e => {
+        let nama = $('#name').value;
+        let price = $('#price').value;
+        let pic = $('#pic').value;
+        data.push(new Product(nama, price, pic));
+        showData();
+        $('#name').value = "";
+        $('#price').value = "";
+        $('#pic').value = ""
+    });
+
+    addProduct = id => {
+        const qty = prompt('Berapa banyak?');
+        if (isNaN(qty)) { //Check input is a number or not
+            alert('Invalid input');
+            addProduct(id) //rerun function
+        }
+        if (!qty) { //check if user canceled the operation
+            return false;
+        }
+
+        const index = getIndexById(id);
+        if (index !== false) {
+            cart[index].qty += Number(qty)
+        } else {
+            cart.push({
+                ...data[id], //including data from prod
+                qty: Number(qty), //add qty
+                id: id //id of the data
+            })
+        }
+        // console.log(cart);
+        // console.log(index);
+        showCart()
+    };
+    deleteprod = id => {
+        const qty = prompt('Berapa banyak?');
+        if (isNaN(qty)) { //Check input is a number or not
+            alert('Invalid input');
+            deleteprod(id) //rerun function
+        }
+        if (!qty) { //check if user canceled the operation
+            return false;
+        }
+
+        const index = getIndexById(id);
+        if (cart[index].qty > Number(qty)) {
+            cart[index].qty -= Number(qty)
+        } else {
+            cart.splice(index, 1)
+        }
+        showCart()
+    };
+    let timer;
+    let seconds = 30;
+    const delbtn = $('.btn.btn-danger');
+    $('#checkout').addEventListener('click', e => {
+        e.target.style.display = "none";
+        $('#checkout-con').style.display = "block";
+        for (let i = 0; i < delbtn.length; i++) {
+            delbtn[i].disabled = true
+        }
+
+        const timer = setInterval(() => {
+            seconds--;
+            $('#seconds').innerText = seconds;
+            if (seconds == 0) {
+                for (let i = 0; i < delbtn.length; i++) {
+                    delbtn[i].disabled = false
+                }
+                alert('Session Expired');
+                cart = [];
+                clearInterval(timer);
+                $('#seconds').innerText = 30;
+                seconds = 30;
+                e.target.style.display = "block";
+                showCart();
+                $('#checkout-con').style.display = "none";
+            }
+        }, 1000)
+    });
+    $('#pay').addEventListener('click', e => {
+        const pay = $('#checkoutvalue').value;
+        if (pay !== "") {
+            if (Number(pay) > totalbelanja) {
+                alert(`Kembalian anda ${pay - totalbelanja}`);
+                for (let i = 0; i < delbtn.length; i++) {
+                    delbtn[i].disabled = false
+                }
+                cart = [];
+                clearInterval(timer);
+                $('#seconds').innerText = 30;
+                seconds = 30;
+                e.target.style.display = "block";
+                showCart();
+                $('#checkout-con').style.display = "none";
+            } else if (Number(pay) == totalbelanja) {
+                for (let i = 0; i < delbtn.length; i++) {
+                    delbtn[i].disabled = false
+                }
+                cart = [];
+                clearInterval(timer);
+                $('#seconds').innerText = 30;
+                seconds = 30;
+                e.target.style.display = "block";
+                showCart();
+                $('#checkout-con').style.display = "none";
+            } else {
+                alert('duit kurang')
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
