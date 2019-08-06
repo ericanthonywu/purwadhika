@@ -220,7 +220,7 @@
             delbtn[i].disabled = true
         }
 
-        const timer = setInterval(() => {
+        timer = setInterval(() => {
             seconds--;
             $('#seconds').innerText = seconds;
             if (seconds == 0) {
@@ -230,6 +230,7 @@
                 alert('Session Expired');
                 cart = [];
                 clearInterval(timer);
+                timer = null;
                 $('#seconds').innerText = 30;
                 seconds = 30;
                 e.target.style.display = "block";
@@ -242,23 +243,29 @@
         const pay = $('#checkoutvalue').value;
         if (pay !== "") {
             if (Number(pay) > totalbelanja) {
+                $('#checkout').style.display = "block";
                 alert(`Kembalian anda ${pay - totalbelanja}`);
                 for (let i = 0; i < delbtn.length; i++) {
                     delbtn[i].disabled = false
                 }
                 cart = [];
                 clearInterval(timer);
+                timer = null;
                 $('#seconds').innerText = 30;
+                $('#checkoutvalue').value = "";
                 seconds = 30;
                 e.target.style.display = "block";
                 showCart();
                 $('#checkout-con').style.display = "none";
             } else if (Number(pay) == totalbelanja) {
+                $('#checkout').style.display = "block";
                 for (let i = 0; i < delbtn.length; i++) {
                     delbtn[i].disabled = false
                 }
+                $('#checkoutvalue').value = "";
                 cart = [];
                 clearInterval(timer);
+                timer = null;
                 $('#seconds').innerText = 30;
                 seconds = 30;
                 e.target.style.display = "block";
