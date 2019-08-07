@@ -1,0 +1,41 @@
+//===== soal 1 =========
+function bulan(jumlah_bebek_awal, persen, pendatang_perbulan, target_bebek) {
+    let target = jumlah_bebek_awal;
+    let bulan = 0;
+    let bebek_per_bulan = jumlah_bebek_awal * (persen / 100) + pendatang_perbulan;
+    while (target <= target_bebek) {
+        target += bebek_per_bulan;
+        bulan++;
+        // console.log(target + " || " + target_bebek);
+        // console.log(bulan)
+    }
+    console.log(`Bebek akan mencapai ${target_bebek} dalam ${bulan - 1} bulan`)
+}
+
+bulan(1500000, 2.5, 10000, 2000000);
+bulan(1000, 5, 50, 1200);
+
+//====== soal 3 ======
+
+function odd(num) {
+    let arr = [];
+    for (let i = 0; i < num; i++) {
+        let arrtemp = [];
+        let firstindex = 0;
+        let temparr = arr[arr.length - 1];
+        if (typeof temparr !== "undefined") {
+            firstindex = temparr[temparr.length - 1]
+        }
+        for (let j = 0; j <= i; j++) {
+            let idx = !i ? 1 : firstindex + 2;
+            for (let k = 0; k < j; k++) {
+                idx += 2
+            }
+            arrtemp.push(idx)
+        }
+        arr.push(arrtemp)
+    }
+    console.log(arr)
+}
+
+odd(5);

@@ -45,8 +45,8 @@
         <h3>Your Cart is Empty</h3>
     </div>
     <div id="con-cart" style="display: none">
-        <h2>Total Belanja anda: <span id="subtotal">0</span></h2>
-        <h3>Total Harga Belanjaan anda: <span id="totalbelanja">0</span></h3>
+        <h2>CART ADA <span id="subtotal">0</span> BARANG</h2>
+        <h3>Total Harga Belanjaan anda adalah Rp.<span id="totalbelanja">0</span></h3>
         <br>
         <br>
         <h3>Cart</h3>
@@ -169,46 +169,54 @@
     });
 
     addProduct = id => {
-        const qty = prompt('Berapa banyak?');
-        if (isNaN(qty)) { //Check input is a number or not
-            alert('Invalid input');
-            addProduct(id) //rerun function
-        }
-        if (!qty) { //check if user canceled the operation
-            return false;
-        }
-
         const index = getIndexById(id);
-        if (index !== false) {
-            cart[index].qty += Number(qty)
-        } else {
-            cart.push({
-                ...data[id], //including data from prod
-                qty: Number(qty), //add qty
-                id: id //id of the data
-            })
+
+        const ask = confirm(`Apakah anda ingin menambahkan ${data[id].nama} ke dalam kerajang anda?`);
+        if(ask){
+            const qty = prompt('Berapa banyak?');
+            if (isNaN(qty)) { //Check input is a number or not
+                alert('Invalid input');
+                addProduct(id) //rerun function
+            }
+            if (!qty) { //check if user canceled the operation
+                return false;
+            }
+
+
+            if (index !== false) {
+                cart[index].qty += Number(qty)
+            } else {
+                cart.push({
+                    ...data[id], //including data from prod
+                    qty: Number(qty), //add qty
+                    id: id //id of the data
+                })
+            }
+            // console.log(cart);
+            // console.log(index);
+            showCart()
         }
-        // console.log(cart);
-        // console.log(index);
-        showCart()
     };
     deleteprod = id => {
-        const qty = prompt('Berapa banyak?');
-        if (isNaN(qty)) { //Check input is a number or not
-            alert('Invalid input');
-            deleteprod(id) //rerun function
-        }
-        if (!qty) { //check if user canceled the operation
-            return false;
-        }
+        const ask = confirm(`Apakah anda ingin delete ${data[id].nama} ke dalam kerajang anda?`);
+        if(ask) {
+            const qty = prompt('Berapa banyak?');
+            if (isNaN(qty)) { //Check input is a number or not
+                alert('Invalid input');
+                deleteprod(id) //rerun function
+            }
+            if (!qty) { //check if user canceled the operation
+                return false;
+            }
 
-        const index = getIndexById(id);
-        if (cart[index].qty > Number(qty)) {
-            cart[index].qty -= Number(qty)
-        } else {
-            cart.splice(index, 1)
+            const index = getIndexById(id);
+            if (cart[index].qty > Number(qty)) {
+                cart[index].qty -= Number(qty)
+            } else {
+                cart.splice(index, 1)
+            }
+            showCart()
         }
-        showCart()
     };
     let timer;
     let seconds = 30;
@@ -232,6 +240,7 @@
                 clearInterval(timer);
                 timer = null;
                 $('#seconds').innerText = 30;
+                $('#checkoutvalue').value = ""
                 seconds = 30;
                 e.target.style.display = "block";
                 showCart();
@@ -244,7 +253,7 @@
         if (pay !== "") {
             if (Number(pay) > totalbelanja) {
                 $('#checkout').style.display = "block";
-                alert(`Kembalian anda ${pay - totalbelanja}`);
+                alert(`Kembalian anda adalah Rp.${pay - totalbelanja}`);
                 for (let i = 0; i < delbtn.length; i++) {
                     delbtn[i].disabled = false
                 }
@@ -272,7 +281,7 @@
                 showCart();
                 $('#checkout-con').style.display = "none";
             } else {
-                alert('duit kurang')
+                alert(`Uang anda masih kurang Rp.${totalbelanja - Number(pay)}`)
             }
         }
     })
