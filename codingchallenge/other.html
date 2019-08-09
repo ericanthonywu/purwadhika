@@ -1,0 +1,204 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+</head>
+<style>
+    table {
+        width: 100%;
+        margin: auto;
+    }
+
+    td {
+        border: 1px solid black;
+        height: 200px;
+        text-align: center;
+        font-size: 100px;
+        cursor: pointer;
+        width: 33.3%;
+    }
+</style>
+<body>
+<h1 style="text-align: center">Giliran O</h1>
+<table height="50px" style="padding: 100px" width="20px">
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<script>
+
+    let user = "o"
+
+    const el = document.getElementsByTagName('td')
+    for (let i = 0; i < el.length; i++) {
+        el[i].addEventListener('click', e => {
+            if (e.target.innerHTML === "") {
+                e.target.innerHTML = user;
+                user = user === "o" ? "x" : "o";
+                document.getElementsByTagName('h1')[0].innerHTML = "giliran " + user;
+                const td = document.getElementsByTagName('td')
+                if (td[0].innerHTML === "o" && td[1].innerHTML === "o" && td[2].innerHTML === "o") {
+                    alert("game selesai!! yang menang adalah tim O")
+                    const tdnya = document.getElementsByTagName('td');
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[3].innerHTML === "o" && td[4].innerHTML === "o" && td[5].innerHTML === "o") {
+                    alert("game selesai!! yang menang adalah tim O")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[6].innerHTML === "o" && td[7].innerHTML === "o" && td[8].innerHTML === "o") {
+                    alert("game selesai!! yang menang adalah tim O")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[0].innerHTML === "o" && td[3].innerHTML === "o" && td[6].innerHTML === "o") {
+                    alert("game selesai!! yang menang adalah tim O")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[1].innerHTML === "o" && td[4].innerHTML === "o" && td[7].innerHTML === "o") {
+                    alert("game selesai!! yang menang adalah tim O")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[2].innerHTML === "o" && td[4].innerHTML === "o" && td[6].innerHTML === "o") {
+                    alert("game selesai!! yang menang adalah tim O")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[1].innerHTML === "o" && td[4].innerHTML === "o" && td[8].innerHTML === "o") {
+                    alert("game selesai!! yang menang adalah tim O")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[2].innerHTML === "o" && td[4].innerHTML === "o" && td[6].innerHTML === "o") {
+                    alert("game selesai!! yang menang adalah tim O")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[0].innerHTML === "o" && td[4].innerHTML === "o" && td[8].innerHTML === "o") {
+                    alert("game selesai!! yang menang adalah tim O")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+
+                //========================= if untuk X ===================================\\
+
+                if (td[0].innerHTML === "x" && td[1].innerHTML === "x" && td[2].innerHTML === "x") {
+                    alert("game selesai!! yang menang adalah tim X")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[3].innerHTML === "x" && td[4].innerHTML === "x" && td[5].innerHTML === "x") {
+                    alert("game selesai!! yang menang adalah tim X")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[6].innerHTML === "x" && td[7].innerHTML === "x" && td[8].innerHTML === "x") {
+                    alert("game selesai!! yang menang adalah tim X")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[0].innerHTML === "x" && td[3].innerHTML === "x" && td[6].innerHTML === "x") {
+                    alert("game selesai!! yang menang adalah tim X")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[0].innerHTML === "x" && td[4].innerHTML === "x" && td[8].innerHTML === "x") {
+                    alert("game selesai!! yang menang adalah tim X")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[1].innerHTML === "x" && td[4].innerHTML === "x" && td[7].innerHTML === "x") {
+                    alert("game selesai!! yang menang adalah tim X")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[2].innerHTML === "x" && td[5].innerHTML === "x" && td[6].innerHTML === "x") {
+                    alert("game selesai!! yang menang adalah tim X")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[2].innerHTML === "x" && td[5].innerHTML === "x" && td[6].innerHTML === "x") {
+                    alert("game selesai!! yang menang adalah tim X")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[1].innerHTML === "x" && td[4].innerHTML === "x" && td[8].innerHTML === "x") {
+                    alert("game selesai!! yang menang adalah tim X")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[2].innerHTML === "x" && td[4].innerHTML === "x" && td[6].innerHTML === "x") {
+                    alert("game selesai!! yang menang adalah tim X")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+                if (td[0].innerHTML === "o" && td[4].innerHTML === "o" && td[8].innerHTML === "o") {
+                    alert("game selesai!! yang menang adalah tim O")
+                    const tdnya = document.getElementsByTagName('td')
+                    for (let j = 0; j < tdnya.length; j++) {
+                        tdnya[j].innerHTML = ""
+                    }
+                }
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

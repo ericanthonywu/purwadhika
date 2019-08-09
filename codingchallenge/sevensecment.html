@@ -1,0 +1,99 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<center>
+    <table>
+        <tr id="res">
+
+        </tr>
+    </table>
+    <input type="number" id="input">
+    <button onclick="run()">input</button>
+</center>
+<script>
+    function run() {
+
+        var number0 = `&nbsp;____<br>
+                      |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+                      |____|<br>`
+        var number1 = `
+                     |<br>
+                     |<br>`
+        var number2 = `____<br>
+                       ____|<br>
+                      |____<br>`
+        var number3 = `____<br>
+                       ____|<br>
+                       ____|<br>`
+        var number4 = `
+                       |____|<br>
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|     <br>`
+        var number5 = `____<br>
+                      |____<br>
+                       ____|<br>`
+        var number6 = `____<br>
+                      |____<br>
+                      |____|<br>`
+        var number7 = `____<br>
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     |<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           |<br>`
+        var number8 = `____<br>
+                      |____|<br>
+                      |____|<br>`
+        var number9 = `____<br>
+                      |____|<br>
+                       ____|<br>`
+
+        let input = document.getElementById('input').value;
+        let str = input.toString().split("");
+        let html = '';
+
+        for (var i = 0; i < str.length; i++) {
+            switch (str[i]) {
+                case "0":
+                    html += "<td>"+number0+"</td>"
+                    break;
+                case "1":
+                    html += "<td>"+number1+"</td>"
+                    break;
+                case "2":
+                    html += "<td>"+number2+"</td>"
+                    break;
+                case "3":
+                    html += "<td>"+number3+"</td>";
+                    break;
+                case "4":
+                    html +="<td>"+ number4+"</td>";
+                    break;
+                case "5":
+                    html += "<td>"+number5+"</td>";
+                    break;
+                case "6":
+                    html += "<td>"+number6+"</td>";
+                    break;
+                case "7":
+                    html += "<td>"+number7+"</td>";
+                    break;
+                case "8":
+                    html += "<td>"+number8+"</td>";
+                    break;
+                case "9":
+                    html += "<td>"+number9+"</td>";
+                    break;
+            }
+        }
+
+        document.getElementById('res').innerHTML =  html;
+    }
+
+
+
+</script>
+</body>
+</html>
